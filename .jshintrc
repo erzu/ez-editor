@@ -1,0 +1,12 @@
+{
+  "asi": true,
+  "unused": "vars",
+  "mocha": true,
+  "strict": false,
+
+  "globals": {
+    "require": false,
+    "exports": false,
+    "module": false
+  }
+}
