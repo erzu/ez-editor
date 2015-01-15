@@ -30,6 +30,8 @@ function createModel(metadata, data) {
     var i
 
     function addChild(child) {
+      child.parent = parent
+
       if (parent instanceof Collection)
         parent.models.push(child)
       else
@@ -46,7 +48,6 @@ function createModel(metadata, data) {
     switch (obj.type) {
       case 'object':
         model = new Model(p, { title: obj.title })
-        model.parent = parent
         addChild(model)
         parent = model
         for (p in obj.columns) {
@@ -56,7 +57,6 @@ function createModel(metadata, data) {
         break
       case 'array':
         collection = new Collection(p)
-        collection.parent = parent
         addChild(collection)
         parent = collection
         for (i = 0; i < obj.length; i++) {
@@ -66,7 +66,6 @@ function createModel(metadata, data) {
         break
       case 'mixed':
         mixed = new Mixed(p)
-        mixed.parent = parent
         addChild(mixed)
         parent = mixed
         for (i = 0; i < obj.columns.length; i++) {
@@ -129,8 +128,7 @@ _.extend(Editor.prototype, {
     return this
   },
 
-  end: function(done) {
-    this.done = done
+  end: function() {
     this.render()
     this.bind()
 
@@ -142,6 +140,7 @@ _.extend(Editor.prototype, {
     var data = this.data
 
     this.model = createModel(metadata, data)
+    this.model.parent = this
 
     if (metadata) {
       this.el().html(this.model.render())
@@ -163,7 +162,7 @@ _.extend(Editor.prototype, {
 
       if (root.find('[data-changed]').length > 0) {
         self.edited = true
-        self.trigger('change', self.dump())
+        self.trigger('change', { data: self.dump() })
         root.find('[data-changed]').removeAttr('data-changed')
       }
 
@@ -257,11 +256,11 @@ _.extend(Editor.prototype, {
     }
 
     this.edited = false
-    this.trigger('submit', data)
+    this.trigger('submit', { data: data })
   },
 
-  trigger: function(type, data) {
-    E.trigger(this, { type: type, target: this, data: data})
+  trigger: function(type, opts) {
+    E.trigger(this, _.extend({ type: type, target: this }, opts))
   },
 
   on: function(type, fn) {
