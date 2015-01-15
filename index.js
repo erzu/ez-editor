@@ -289,4 +289,5 @@ _.extend(Editor.prototype, {
 })
 
 
+Editor.Field = Field
 module.exports = Editor
