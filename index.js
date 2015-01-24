@@ -108,7 +108,7 @@ function Editor(id, opts) {
   this.metadata = opts.metadata
 
   this.opts = {
-    beat: 400
+    interval: 400
   }
 }
 
@@ -122,9 +122,10 @@ _.extend(Editor.prototype, {
     return this
   },
 
-  end: function() {
+  end: function(fn) {
     this.render()
     this.bind()
+    fn.call(this)
 
     return this
   },
@@ -143,12 +144,12 @@ _.extend(Editor.prototype, {
 
   bind: function() {
     var self = this
-    var beat = this.opts.beat
+    var interval = this.opts.interval
     var timer
 
     function later(fn) {
       if (timer) clearTimeout(timer)
-      timer = setTimeout(fn, beat)
+      timer = setTimeout(fn, interval)
     }
 
     function poll() {
@@ -255,15 +256,17 @@ _.extend(Editor.prototype, {
   },
 
   trigger: function(type, opts) {
-    E.trigger(this, _.extend({ type: type, target: this }, opts))
+    return E.trigger(this, _.extend({ type: type, target: this }, opts))
   },
 
   on: function(type, fn) {
     E.on(this, type, fn)
+    return this
   },
 
   off: function(type, fn) {
     E.off(this, type, fn)
+    return this
   },
 
   registerType: function(type, Class) {
