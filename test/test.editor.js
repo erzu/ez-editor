@@ -8,7 +8,9 @@ describe('@ali/editor', function() {
   var editor
 
   before(function() {
-    editor = new Editor('#fixture .editor', creative0).end()
+    editor = new Editor('#fixture .editor', creative0)
+      .set('interval', 100)
+      .end()
   })
 
   it('.dump data', function() {

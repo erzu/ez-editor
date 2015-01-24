@@ -107,9 +107,7 @@ function Editor(id, opts) {
   this.data = opts.data
   this.metadata = opts.metadata
 
-  this.opts = {
-    interval: 400
-  }
+  this.interval = opts.interval || 400
 }
 
 _.extend(Editor.prototype, {
@@ -125,7 +123,7 @@ _.extend(Editor.prototype, {
   end: function(fn) {
     this.render()
     this.bind()
-    fn.call(this)
+    if (fn) fn.call(this)
 
     return this
   },
@@ -144,7 +142,7 @@ _.extend(Editor.prototype, {
 
   bind: function() {
     var self = this
-    var interval = this.opts.interval
+    var interval = this.interval
     var timer
 
     function later(fn) {
