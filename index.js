@@ -19,14 +19,27 @@ var ColorField = require('./lib/color_field')
 var E = $.Events
 
 
+var TypeMap = {
+  number: NumberField,
+  image: ImageField,
+  url: LinkField,
+  clip: ClipField,
+  hidden: HiddenField,
+  video: VideoField,
+  color: ColorField,
+  text: Field
+}
+
 function createModel(metadata, data) {
   var parent = new Model()
   var path = []
 
   function describe(p, obj) {
+    var Class
     var collection
     var model
     var mixed
+    var element
     var i
 
     function addChild(child) {
@@ -59,8 +72,9 @@ function createModel(metadata, data) {
         collection = new Collection(p)
         addChild(collection)
         parent = collection
+        element = obj.element || { type: 'object', columns: obj.columns }
         for (i = 0; i < obj.length; i++) {
-          describe(i, { type: 'object', columns: obj.columns })
+          describe(i, element)
         }
         parent = collection.parent
         break
@@ -73,29 +87,9 @@ function createModel(metadata, data) {
         }
         parent = mixed.parent
         break
-      case 'number':
-        addChild(new NumberField(p, obj))
-        break
-      case 'image':
-        addChild(new ImageField(p, obj))
-        break
-      case 'url':
-        addChild(new LinkField(p, obj))
-        break
-      case 'clip':
-        addChild(new ClipField(p, obj))
-        break
-      case 'hidden':
-        addChild(new HiddenField(p, obj))
-        break
-      case 'video':
-        addChild(new VideoField(p, obj))
-        break
-      case 'color':
-        addChild(new ColorField(p, obj))
-        break
       default:
-        addChild(new Field(p, obj))
+        Class = TypeMap[obj.type] || TypeMap.text
+        addChild(new Class(p, obj))
     }
 
     path.pop()
@@ -113,9 +107,7 @@ function Editor(id, opts) {
   this.data = opts.data
   this.metadata = opts.metadata
 
-  this.opts = {
-    beat: 400
-  }
+  this.interval = opts.interval || 400
 }
 
 _.extend(Editor.prototype, {
@@ -128,9 +120,10 @@ _.extend(Editor.prototype, {
     return this
   },
 
-  end: function() {
+  end: function(fn) {
     this.render()
     this.bind()
+    if (fn) fn.call(this)
 
     return this
   },
@@ -149,12 +142,12 @@ _.extend(Editor.prototype, {
 
   bind: function() {
     var self = this
-    var beat = this.opts.beat
+    var interval = this.interval
     var timer
 
     function later(fn) {
       if (timer) clearTimeout(timer)
-      timer = setTimeout(fn, beat)
+      timer = setTimeout(fn, interval)
     }
 
     function poll() {
@@ -189,8 +182,9 @@ _.extend(Editor.prototype, {
   },
 
   switchTo: function(e) {
-    var index = e.path.pop()
-    var collection = this.model.queryPath(e.path)
+    var path = [].concat(e.path)
+    var index = path.pop()
+    var collection = this.model.queryPath(path)
 
     collection.switchTo(index, true)
   },
@@ -260,15 +254,22 @@ _.extend(Editor.prototype, {
   },
 
   trigger: function(type, opts) {
-    E.trigger(this, _.extend({ type: type, target: this }, opts))
+    return E.trigger(this, _.extend({ type: type, target: this }, opts))
   },
 
   on: function(type, fn) {
     E.on(this, type, fn)
+    return this
   },
 
   off: function(type, fn) {
     E.off(this, type, fn)
+    return this
+  },
+
+  registerType: function(type, Class) {
+    TypeMap[type] = Class
+    return this
   },
 
   disableSubmit: function(message) {
@@ -289,4 +290,6 @@ _.extend(Editor.prototype, {
 
 
 Editor.Field = Field
+Editor.HiddenField = HiddenField
+
 module.exports = Editor

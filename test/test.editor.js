@@ -1,6 +1,4 @@
 /* globals expect: false */
-'use strict';
-
 var Editor  = require('@ali/editor')
 var creative0 = require('./fixture/creative0')
 var $ = require('@ali/yen')
@@ -10,7 +8,9 @@ describe('@ali/editor', function() {
   var editor
 
   before(function() {
-    editor = new Editor('#fixture', creative0).end()
+    editor = new Editor('#fixture .editor', creative0)
+      .set('interval', 100)
+      .end()
   })
 
   it('.dump data', function() {
@@ -23,12 +23,24 @@ describe('@ali/editor', function() {
   })
 
   it('.trigger change event', function(done) {
-    editor.on('change', function(e) {
+    editor.on('change', function onChange(e) {
+      expect(e.data).to.be.an(Object)
       expect(e.data.clickurl).to.equal('http://cyj.me')
+      editor.off('change', onChange)
       done()
     })
     var ipt = $(editor.model.columns[0].id).find('input[type=text]')
     ipt.val('http://cyj.me')
     ipt.trigger('keyup')
+  })
+
+  it('.trigger collection:switch event', function(done) {
+    editor.on('collection:switch', function onCollectionSwitch(e) {
+      expect(e.path).to.eql(['items', 1])
+      editor.off('collection:switch', onCollectionSwitch)
+      done()
+    })
+    var trigger = $(editor.model.columns[5].id).find('.trigger').last()
+    trigger.trigger('click')
   })
 })

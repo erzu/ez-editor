@@ -2,24 +2,34 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link type="text/css" rel="stylesheet" href="http://amo.alicdn.com/L1/377/101010/assets/mocha-932de965a07255c38bbb1e9f678cde64.css" />
   <link rel="stylesheet" href="http://g.tbcdn.cn/thx/cube/1.2.0/cube.css">
   <link rel="stylesheet" href="http://amo.alicdn.com/L1/377/10010/assets/editor-7d540c6c850b4e8dc4c2078cbec50534.css">
   <title>@ali/editor &mdash; Test Runner</title>
   <style type="text/css">
-  #mocha { margin-right: 320px; }
+  .aside .collection .dib,
+  .aside .mixed .dib {
+    font-size: 14px;
+  }
+
+  .aside {
+    padding-top: 20px;
+  }
+
+  #preview {
+    margin-right: 320px;
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 20px;
+  }
   </style>
 </head>
 <body>
-  <div id="mocha"></div>
+  <div id="preview">
+    <pre></pre>
+  </div>
   <div id="fixture" class="aside">
-    <div class="title-bar">
-      <h3>Editor Fixture</h3>
-    </div>
     <div class="editor form"></div>
   </div>
-  <script src="http://amo.alicdn.com/L1/377/101010/assets/mocha-39ab115a28db1aa1b20a33772d1272a1.js"></script>
-  <script src="http://amo.alicdn.com/L1/377/101010/assets/expect-0c4d7b1e6c1f3df2bfaba7fadb0a2732.js"></script>
   <script src="http://amo.alicdn.com/L1/377/10010/sea.js"></script>
   <!--[if lte IE 9]><!-->
   <script src="http://amo.alicdn.com/L1/377/101010/assets/es5-7dfe7fb63d161c704e2f35874957b921.js"></script>
@@ -27,15 +37,11 @@
   <script src="http://amo.alicdn.com/L1/377/10010/assets/jquery-d4d94b9f4d06935d7a85df033ee99bc3.js"></script>
   <script src="/config.js"></script>
   <script>
-    /* globals mocha: false, seajs: false */
-    mocha.ui('bdd')
+    /* globals seajs: false */
 
     // should be handled via /config.js
     seajs.config({ alias: { crox: 'crox/build/crox-all' } })
-
-    seajs.use('@ali/editor/test/test.editor', function() {
-      mocha.run()
-    })
+    seajs.use('@ali/editor/test/dryrun')
   </script>
 </body>
 </html>
