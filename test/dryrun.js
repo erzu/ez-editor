@@ -67,11 +67,11 @@ new Editor('#fixture .editor', {
 })
   .set('interval', 10)
   .registerType('diamondShopType', DiamondShopTypeField)
-  .on('change', function(e) {
+  .on('editor:change', function(e) {
     $('#preview pre').html(
       _.template('{data}', { data: JSON.stringify(e.data, null, 2) })
     )
   })
   .end(function() {
-    this.trigger('change', { data: this.dump() })
+    this.trigger('editor:change', { data: this.dump() })
   })
