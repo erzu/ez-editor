@@ -13,7 +13,7 @@
 
 /* globals jQuery: false */
 var iframeCount = 0
-var $ = jQuery
+var $ = require('jquery')
 
 
 function Uploader(options) {

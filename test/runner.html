@@ -24,14 +24,10 @@
   <!--[if lte IE 9]><!-->
   <script src="http://amo.alicdn.com/L1/377/101010/assets/es5-7dfe7fb63d161c704e2f35874957b921.js"></script>
   <!--<![endif]-->
-  <script src="http://amo.alicdn.com/L1/377/10010/assets/jquery-d4d94b9f4d06935d7a85df033ee99bc3.js"></script>
   <script src="/config.js"></script>
   <script>
     /* globals mocha: false, seajs: false */
     mocha.ui('bdd')
-
-    // should be handled via /config.js
-    seajs.config({ alias: { crox: 'crox/build/crox-all' } })
 
     seajs.use('@ali/editor/test/test.editor', function() {
       mocha.run()

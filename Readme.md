@@ -1,5 +1,6 @@
 # @ali/editor
 
+
 ## Usage
 
 ```js
@@ -23,23 +24,38 @@ new Editor('#editor', {
     }
   }
 })
-  .on('warning', function(e) {
-    console.log(e.message)
+
+  // ImageField 中上传图片所用的接口
+  .set('image:create', '/graphics/images')
+  .on('image:didCreate', function(e) {
+    var field = e.target
+    var result = e.result
+
+    // `/graphics/images` 接口返回的结果。在创意中心里，这个接口返回的结果格式类似：
+    //
+    //     {
+    //       files: [
+    //         { id: 784533, path: 'http://...', width: 200, height: 200 }
+    //       ]
+    //     }
+    //
+    field.change(result.files[0].path)
   })
-  .on('submit', function(e) {
-    console.log(e.data)
-  })
+
   .end()
 ```
+
 
 ### Register Type
 
 可以使用 `.registerType` 方法，扩展 `metadata` 里头的字段类型，方便处理类似：
 
+- 1688Shop
+- clip
 - diamondShop
 - diamondShopType
 - diamondVideo
-- 1688Shop
+- video
 
 之类的特殊字段：
 
@@ -73,6 +89,12 @@ new Editor('#editor', { ... })
   .end()
 ```
 
+
+### Field 与 CustomField
+
+TODO
+
+
 ## Development
 
 ```js
@@ -80,25 +102,36 @@ $ tnpm start
 $ open http://localhost:5000/tets/runner.html
 ```
 
+
 ## 与 `ma/saka/edit` 的区别
+
+新接入的用户不需要关心以下文档，只是迁移过程的记录。
+
 
 ### 没有 `diamondShop` 等业务定制字段
 
-详见 `.registerType` 相关文档。
+相比 [现版创意中心][central] 里的 `ma/saka/edit`，`@ali/editor` 里不支持如下字段：
 
-### 没有 `ma/saka/bugle`
+| type            | Class                |  Description                       |
+|-----------------|----------------------|------------------------------------|
+| 1688Shop        | _1688ShopField       | 获取 1688 用户的店铺信息             |
+| clip            | ClipField            | 选取音频                            |
+| diamondShop     | DiamondShopField     | 获取钻石展位用户的店铺信息            |
+| diamondShopType | DiamondShopTypeField | 获取钻石展位用户的店铺类型信息         |
+| diamondVideo    | DiamondVideoField    | 选取钻石展位用户在钻展后台上传的视频    |
+| video           | VideoField           | 选取用户在淘宝视频开放平台上传的视频    |
 
-即没有依赖特定的消息反馈模块，改为通过事件抛出，可以自行监听相关事件：
+因为都是与具体业务，与所接入的平台强相关的，所以在 `@ali/editor` 模块中默认不支持这些字段。
+相应的，在具体场景中，我们可以通过 `.registerType` 来注册字段类型：
 
 ```js
-new Editor('#el', { ... })
-  .on('warning', function(e) {
-    alert(e.message)
-  })
-  .on('fatal', function(e) {
-    alert(e.message + '!!!')
-  })
+new Editor('#editor', { ... })
+  .registerType('video', DiamondVideoField)
+  .end()
 ```
+
+详见 `.registerType` 相关文档，自定义的字段 Class 写法详见 `Field` 相关文档。
+
 
 ### 不处理预览区域
 
@@ -112,7 +145,7 @@ new Editor('#el', { ... })
 var stage = require('@ali/show')('#creative', creative).end()
 
 new Editor('#el', { ... })
-  .on('change', function(e) {
+  .on('editor:change', function(e) {
     stage
       .set('data', e.data)
       .end()
@@ -120,22 +153,28 @@ new Editor('#el', { ... })
   .end()
 ```
 
+`@ali/editor` 也不再持有 `stage`，而是仅处理 `stage.data` 和 `stage.metadata`。
+
+
 ### 不处理数据保存
 
 在 `ma/saka/edit` 里，用户点击右侧面板底部的保存按钮的时候，会直接向配置的后端接口提交数据。
 
-在 `@ali/editor` 里，不再耦合这层逻辑，编辑器只在保存的时候简单校验数据，校验通过即抛出
-`submit` 事件：
+在 `@ali/editor` 里，不再耦合这层逻辑，编辑器也不再监听 `$('.j-save')` 的点击时间，需要
+在使用的时候自行调用 `Editor#dump`
 
-```
-new Editor('#el', { ... })
-  .on('submit', function(e) {
-    jQuery.ajax({
-      url: 'http://',
-      data: e.data,
-      dataType: 'json',
-      success: function() {}
+```js
+var editor = new Editor('#el', { ... })
+  .on('editor:change', function(e) {
+    console.log(e.data)
+  })
+  .end(function() {
+    $('.j-save').on('click', function() {
+      jQuery.ajax({
+        url: '/creations',
+        data: JSON.stringify({ data: editor.dump() })
+      })
     })
   })
-  .end()
 ```
+
