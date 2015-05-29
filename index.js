@@ -13,6 +13,7 @@ var NumberField = require('./lib/number_field')
 var LinkField = require('./lib/link_field')
 var HiddenField = require('./lib/hidden_field')
 var ColorField = require('./lib/color_field')
+var SelectField = require('./lib/select_field')
 
 var E = $.Events
 
@@ -23,7 +24,8 @@ var TypeMap = {
   url: LinkField,
   hidden: HiddenField,
   color: ColorField,
-  text: Field
+  text: Field,
+  select: SelectField
 }
 
 function createModel(metadata, data) {
@@ -207,6 +209,11 @@ _.extend(Editor.prototype, {
         })
         path.pop()
       }
+      else if (el.hasClass('select-field')) {
+        var input = el.find('input')
+
+        obj[p] = input.data('value');
+      }
       else if (el.hasClass('field')) {
         var input = el.find('input')
 
@@ -252,6 +259,7 @@ Editor.Field = Field
 Editor.HiddenField = HiddenField
 Editor.ImageField = ImageField
 Editor.NumberField = NumberField
+Editor.SelectField = SelectField
 
 
 module.exports = Editor
