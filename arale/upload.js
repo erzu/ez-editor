@@ -11,7 +11,6 @@
  * - http://james.padolsey.com/jquery/#v=git&fn=jQuery.fn.position
  */
 
-/* globals jQuery: false */
 var iframeCount = 0
 var $ = require('jquery')
 

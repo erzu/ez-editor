@@ -1,6 +1,6 @@
 var Editor = require('../index')
 var _ = require('@ali/belt')
-var $ = require('@ali/yen')
+var $ = require('yen')
 
 var HiddenField = Editor.HiddenField
 
