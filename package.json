@@ -1,7 +1,7 @@
 {
   "name": "@ali/editor",
   "description": "A Generic JSON Editor",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "repository": {
     "type": "git",
     "url": "git@gitlab.alibaba-inc.com:central/editor.git"
