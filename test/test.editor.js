@@ -1,7 +1,7 @@
 /* globals expect: false */
 var Editor  = require('@ali/editor')
 var creative0 = require('./fixture/creative0')
-var $ = require('@ali/yen')
+var $ = require('yen')
 
 
 describe('@ali/editor', function() {
@@ -23,7 +23,7 @@ describe('@ali/editor', function() {
   })
 
   it('.trigger change event', function(done) {
-    editor.on('change', function onChange(e) {
+    editor.on('editor:change', function onChange(e) {
       expect(e.data).to.be.an(Object)
       expect(e.data.clickurl).to.equal('http://cyj.me')
       editor.off('change', onChange)

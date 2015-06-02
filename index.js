@@ -1,6 +1,6 @@
 'use strict';
 
-var $ = require('@ali/yen')
+var $ = require('yen')
 var _ = require('@ali/belt')
 
 var Model = require('./lib/model')
@@ -210,9 +210,7 @@ _.extend(Editor.prototype, {
         path.pop()
       }
       else if (el.hasClass('select-field')) {
-        var input = el.find('input')
-
-        obj[p] = input.data('value');
+        obj[p] = el.find('input').data('value')
       }
       else if (el.hasClass('field')) {
         var input = el.find('input')
