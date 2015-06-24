@@ -1,7 +1,8 @@
-/* globals expect: false */
-var Editor  = require('@ali/editor')
-var creative0 = require('./fixture/creative0')
+var Editor = require('ez-editor')
 var $ = require('yen')
+var expect = require('expect.js')
+
+var creative0 = require('./fixture/creative0')
 
 
 describe('@ali/editor', function() {

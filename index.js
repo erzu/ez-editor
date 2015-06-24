@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
 var $ = require('yen')
-var _ = require('@ali/belt')
+var extend = require('extend-object')
 
 var Model = require('./lib/model')
 var Collection = require('./lib/collection')
@@ -43,15 +43,16 @@ function createModel(metadata, data) {
     function addChild(child) {
       child.parent = parent
 
-      if (parent instanceof Collection)
+      if (parent instanceof Collection) {
         parent.models.push(child)
-      else
+      } else {
         parent.columns.push(child)
+      }
     }
 
     if (obj.type !== 'mixed') path.push(p)
 
-    obj = _.extend({}, obj)
+    obj = extend({}, obj)
     obj.value = path.reduce(function(data, p) {
       return data[p]
     }, data) || obj.value
@@ -93,8 +94,8 @@ function createModel(metadata, data) {
     path.pop()
   }
 
-  for (var p in metadata.columns) {
-    describe(p, metadata.columns[p])
+  for (var prop in metadata.columns) {
+    describe(prop, metadata.columns[prop])
   }
 
   return parent
@@ -108,7 +109,7 @@ function Editor(id, opts) {
   this.interval = opts.interval || 400
 }
 
-_.extend(Editor.prototype, {
+extend(Editor.prototype, {
   el: function() {
     return $(this.id)
   },
@@ -174,7 +175,7 @@ _.extend(Editor.prototype, {
       return result.columns[p]
     }, this.metadata)
 
-    if (e.value) _.extend(opts, e.value)
+    if (e.value) extend(opts, e.value)
   },
 
   switchTo: function(e) {
@@ -233,7 +234,7 @@ _.extend(Editor.prototype, {
   },
 
   trigger: function(type, opts) {
-    return E.trigger(this, _.extend({ type: type, target: this }, opts))
+    return E.trigger(this, extend({ type: type, target: this }, opts))
   },
 
   on: function(type, fn) {
