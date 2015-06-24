@@ -142,7 +142,7 @@ new Editor('#editor', { ... })
 数据有变更时，通过 `change` 事件抛出：
 
 ```js
-var stage = require('@ali/show')('#creative', creative).end()
+var stage = require('creative-show')('#creative', creative).end()
 
 new Editor('#el', { ... })
   .on('editor:change', function(e) {
