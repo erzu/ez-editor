@@ -5,7 +5,7 @@ var expect = require('expect.js')
 var creative0 = require('./fixture/creative0')
 
 
-describe('@ali/editor', function() {
+describe('ez-editor', function() {
   var editor
 
   before(function() {
