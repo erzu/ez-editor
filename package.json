@@ -17,7 +17,7 @@
   "devDependencies": {
     "expect.js": "~0.3.1",
     "mocha": "~1.20.1",
-    "oceanifier": "~3.0.1",
+    "oceanifier": "~3.1.0",
     "totoro": "~1.0.2"
   },
   "scripts": {
