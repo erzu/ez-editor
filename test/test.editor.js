@@ -1,4 +1,4 @@
-var Editor = require('ez-editor')
+var Editor = require('../index')
 var $ = require('yen')
 var expect = require('expect.js')
 
