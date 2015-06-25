@@ -1,25 +1,23 @@
 {
-  "name": "@ali/editor",
+  "name": "ez-editor",
   "description": "A Generic JSON Editor",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.alibaba-inc.com:central/editor.git"
+    "url": "git@github.com:erzu/ez-editor.git"
   },
   "dependencies": {
-    "@ali/belt": "~0.1.3",
     "crox": "~1.3.1",
+    "extend-object": "~1.0.0",
     "heredoc": "~1.3.0",
+    "inherits": "~2.0.1",
     "jquery": "~1.11.2",
     "yen": "~1.1.3"
-  },
-  "publishConfig": {
-    "registry": "http://registry.npm.alibaba-inc.com"
   },
   "devDependencies": {
     "expect.js": "~0.3.1",
     "mocha": "~1.20.1",
-    "oceanifier": "~3.0.1",
+    "oceanifier": "~3.1.0",
     "totoro": "~1.0.2"
   },
   "scripts": {

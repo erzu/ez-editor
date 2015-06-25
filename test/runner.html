@@ -2,10 +2,10 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link type="text/css" rel="stylesheet" href="http://amo.alicdn.com/L1/377/101010/assets/mocha-932de965a07255c38bbb1e9f678cde64.css" />
+  <link type="text/css" rel="stylesheet" href="/node_modules/mocha/mocha.css" />
   <link rel="stylesheet" href="http://g.tbcdn.cn/thx/cube/1.2.0/cube.css">
   <link rel="stylesheet" href="http://amo.alicdn.com/L1/377/10010/assets/editor-7d540c6c850b4e8dc4c2078cbec50534.css">
-  <title>@ali/editor &mdash; Test Runner</title>
+  <title>ez-editor &mdash; Test Runner</title>
   <style type="text/css">
   #mocha { margin-right: 320px; }
   </style>
@@ -18,18 +18,17 @@
     </div>
     <div class="editor form"></div>
   </div>
-  <script src="http://amo.alicdn.com/L1/377/101010/assets/mocha-39ab115a28db1aa1b20a33772d1272a1.js"></script>
-  <script src="http://amo.alicdn.com/L1/377/101010/assets/expect-0c4d7b1e6c1f3df2bfaba7fadb0a2732.js"></script>
+  <script src="/node_modules/mocha/mocha.js"></script>
   <script src="http://amo.alicdn.com/L1/377/10010/sea.js"></script>
   <!--[if lte IE 9]><!-->
-  <script src="http://amo.alicdn.com/L1/377/101010/assets/es5-7dfe7fb63d161c704e2f35874957b921.js"></script>
+  <script src="http://amo.alicdn.com/L1/377/10010/assets/es5-7dfe7fb63d161c704e2f35874957b921.js"></script>
   <!--<![endif]-->
   <script src="/config.js"></script>
   <script>
     /* globals mocha: false, seajs: false */
     mocha.ui('bdd')
 
-    seajs.use('@ali/editor/test/test.editor', function() {
+    seajs.use('ez-editor/test/test.editor', function() {
       mocha.run()
     })
   </script>

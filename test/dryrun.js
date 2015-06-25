@@ -1,6 +1,9 @@
-var Editor = require('../index')
-var _ = require('@ali/belt')
+var inherits = require('inherits')
+var extend = require('extend-object')
 var $ = require('yen')
+var Crox = require('crox')
+
+var Editor = require('../index')
 
 var HiddenField = Editor.HiddenField
 
@@ -12,9 +15,9 @@ function DiamondShopTypeField(p, opts) {
   this.id = '#j-editor-diamond-shop-type-field' + n++
 }
 
-_.inherits(DiamondShopTypeField, HiddenField)
+inherits(DiamondShopTypeField, HiddenField)
 
-_.extend(DiamondShopTypeField.prototype, {
+extend(DiamondShopTypeField.prototype, {
   bind: function() {
     // Fetch the actual shop type of current diamond user then pass it on
     // via this DiamondShopTypeField
@@ -69,7 +72,7 @@ new Editor('#fixture .editor', {
   .registerType('diamondShopType', DiamondShopTypeField)
   .on('editor:change', function(e) {
     $('#preview pre').html(
-      _.template('{data}', { data: JSON.stringify(e.data, null, 2) })
+      Crox.render('{{root.data}}', { data: JSON.stringify(e.data, null, 2) })
     )
   })
   .end(function() {

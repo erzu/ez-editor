@@ -1,10 +1,10 @@
-# @ali/editor
+# ez-editor
 
 
 ## Usage
 
 ```js
-var Editor = require('@ali/editor')
+var Editor = require('ez-editor')
 
 new Editor('#editor', {
   data: {
@@ -60,7 +60,7 @@ new Editor('#editor', {
 之类的特殊字段：
 
 ```js
-var Editor = require('@ali/editor')
+var Editor = require('ez-editor')
 var Field = Editor.Field
 
 
@@ -110,18 +110,18 @@ $ open http://localhost:5000/tets/runner.html
 
 ### 没有 `diamondShop` 等业务定制字段
 
-相比 [现版创意中心][central] 里的 `ma/saka/edit`，`@ali/editor` 里不支持如下字段：
+相比 `ma/saka/edit`，`ez-editor` 里不支持如下字段：
 
-| type            | Class                |  Description                       |
-|-----------------|----------------------|------------------------------------|
-| 1688Shop        | _1688ShopField       | 获取 1688 用户的店铺信息             |
-| clip            | ClipField            | 选取音频                            |
-| diamondShop     | DiamondShopField     | 获取钻石展位用户的店铺信息            |
-| diamondShopType | DiamondShopTypeField | 获取钻石展位用户的店铺类型信息         |
-| diamondVideo    | DiamondVideoField    | 选取钻石展位用户在钻展后台上传的视频    |
-| video           | VideoField           | 选取用户在淘宝视频开放平台上传的视频    |
+| type            | Class                |
+|-----------------|----------------------|
+| 1688Shop        | _1688ShopField       |
+| clip            | ClipField            |
+| diamondShop     | DiamondShopField     |
+| diamondShopType | DiamondShopTypeField |
+| diamondVideo    | DiamondVideoField    |
+| video           | VideoField           |
 
-因为都是与具体业务，与所接入的平台强相关的，所以在 `@ali/editor` 模块中默认不支持这些字段。
+因为都是与具体业务，与所接入的平台强相关的，所以在 `ez-editor` 模块中默认不支持这些字段。
 相应的，在具体场景中，我们可以通过 `.registerType` 来注册字段类型：
 
 ```js
@@ -138,11 +138,11 @@ new Editor('#editor', { ... })
 在 `ma/saka/edit` 里，直接支持了 `ma/saka/show` 构建出来的实例。定制面板中的数据有变更
 的时候，会自行刷新预览区域。
 
-在 `@ali/editor` 里， 不再耦合这层逻辑，编辑器只消化传进来的 `data` 和 `metadata`，
+在 `ez-editor` 里， 不再耦合这层逻辑，编辑器只消化传进来的 `data` 和 `metadata`，
 数据有变更时，通过 `change` 事件抛出：
 
 ```js
-var stage = require('@ali/show')('#creative', creative).end()
+var stage = require('creative-show')('#creative', creative).end()
 
 new Editor('#el', { ... })
   .on('editor:change', function(e) {
@@ -153,14 +153,14 @@ new Editor('#el', { ... })
   .end()
 ```
 
-`@ali/editor` 也不再持有 `stage`，而是仅处理 `stage.data` 和 `stage.metadata`。
+`ez-editor` 也不再持有 `stage`，而是仅处理 `stage.data` 和 `stage.metadata`。
 
 
 ### 不处理数据保存
 
 在 `ma/saka/edit` 里，用户点击右侧面板底部的保存按钮的时候，会直接向配置的后端接口提交数据。
 
-在 `@ali/editor` 里，不再耦合这层逻辑，编辑器也不再监听 `$('.j-save')` 的点击时间，需要
+在 `ez-editor` 里，不再耦合这层逻辑，编辑器也不再监听 `$('.j-save')` 的点击时间，需要
 在使用的时候自行调用 `Editor#dump`
 
 ```js
