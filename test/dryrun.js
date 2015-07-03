@@ -45,7 +45,11 @@ new Editor('#fixture .editor', {
       }
     ],
     shopType: 'tmall',
-    color: '#1abc9c'
+    color: '#1abc9c',
+    source: {
+      name: 'itemdsp'
+    },
+    number: 0
   },
   metadata: {
     columns: {
@@ -58,13 +62,37 @@ new Editor('#fixture .editor', {
         type: 'array',
         length: 2,
         columns: {
-          image: { type: 'image', width: 200, height: 200 },
-          title: { type: 'text' },
-          color: { type: 'color', sourceImage: 'image' }
+          image: { type: 'image', width: 200, height: 200, label: '图片'},
+          title: { type: 'text', label: '标题'},
+          color: { type: 'color', sourceImage: 'image', label: '配色'}
         }
       },
       shopType: { type: 'diamondShopType' },
-      color: { type: 'color', palette: ['#f1c40f', '#e67e22', '#e74c3c', '#ecf0f1', '#95a5a6']}
+      color: { type: 'color', palette: ['#f1c40f', '#e67e22', '#e74c3c', '#ecf0f1', '#95a5a6']},
+      number: { type: 'number', label: '填个数字'},
+      source: {
+        type: 'mixed',
+        columns: [{
+          type: 'object',
+          title: '直通车',
+          columns: {
+            name: {
+              type: 'select',
+              options: {
+                itemdsp: '单品PC二跳',
+                itemjump: '单品无线二跳',
+                tcmad: '单品PC一跳',
+                mtcmad: '单品无线一跳'
+              },
+              label: '数据源'
+            }
+          }
+        }, {
+          selected: true,
+          type: 'hidden',
+          title: '网销宝'
+        }]
+      }
     }
   }
 })
