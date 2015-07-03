@@ -389,7 +389,6 @@
   padding: 4px 10px;
   color: #303030;
   vertical-align: middle;
-  border-radius: 8px;
 }
 
 .form textarea,
@@ -407,7 +406,7 @@
 .form input[type="search"],
 .form input[type="tel"],
 .form input[type="color"] {
-  background-color: #ffffff;
+  background-color: #efefef;
   border: none;
 }
 
@@ -1179,7 +1178,7 @@ html, body {
   color: #7f8c8d;
   display: block;
   position: absolute;
-  top: -0.7em;
+  top: -0.8em;
   background-color: white;
   left: 10px;
   padding: 0 5px;
@@ -1209,4 +1208,12 @@ html, body {
 
 .aside .field:hover .field-label {
   color: #3498db;
+}
+
+.editor > .model > .field > input.field-block {
+  margin: 10px 0 10px 0;
+}
+
+.editor > .model > .field {
+  padding: 0 10px;
 }
