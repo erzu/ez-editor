@@ -3,16 +3,23 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="http://g.tbcdn.cn/thx/cube/1.2.0/cube.css">
-  <link rel="stylesheet" href="editor.css">
+  <link rel="stylesheet" href="../assets/editor.css">
   <title>ez-editor &mdash; Test Runner</title>
   <style type="text/css">
-  .aside .collection .dib,
-  .aside .mixed .dib {
-    font-size: 14px;
-  }
-
   .aside {
     padding-top: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 300px;
+  }
+
+  .aside .editor {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 58px;
+    max-width: 255px;
   }
 
   #preview {
@@ -36,7 +43,7 @@
   <!--<![endif]-->
   <script src="/config.js"></script>
   <script>
-    /* globals seajs: false */
+    /* eslint-disable */
     seajs.use('ez-editor/test/dryrun')
   </script>
 </body>

@@ -32,6 +32,22 @@ extend(DiamondShopTypeField.prototype, {
 new Editor('#fixture .editor', {
   data: {
     phrases: ['hello', 'world'],
+    categories: [
+      {
+        name: '高端',
+        items: [
+          { title: '指甲剪' },
+          { title: '裁纸刀' }
+        ]
+      },
+      {
+        name: '洋气',
+        items: [
+          { title: '亚洲舞王同款' },
+          { title: '北美一哥原味' }
+        ]
+      }
+    ],
     items: [
       {
         image: 'http://gi1.md.alicdn.com/bao/uploaded/i1/T19d7vFCtcXXXXXXXX_!!0-item_pic.jpg_200x200.jpg',
@@ -58,13 +74,36 @@ new Editor('#fixture .editor', {
         length: 2,
         element: { type: 'string' }
       },
+      categories: {
+        type: 'array',
+        length: 2,
+        element: {
+          type: 'object',
+          columns: {
+            name: { type: 'string' },
+            items: {
+              type: 'array',
+              length: 2,
+              element: {
+                type: 'object',
+                columns: {
+                  title: { type: 'text' }
+                }
+              }
+            }
+          }
+        }
+      },
       items: {
         type: 'array',
         length: 2,
-        columns: {
-          image: { type: 'image', width: 200, height: 200, label: '图片'},
-          title: { type: 'text', label: '标题'},
-          color: { type: 'color', sourceImage: 'image', label: '配色'}
+        element: {
+          type: 'object',
+          columns: {
+            image: { type: 'image', width: 200, height: 200, label: '图片'},
+            title: { type: 'text', label: '标题'},
+            color: { type: 'color', sourceImage: 'image', label: '配色'}
+          }
         }
       },
       shopType: { type: 'diamondShopType' },
