@@ -1,7 +1,7 @@
 {
   "name": "ez-editor",
   "description": "A Generic JSON Editor",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "repository": {
     "type": "git",
     "url": "git@github.com:erzu/ez-editor.git"
