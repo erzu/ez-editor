@@ -439,11 +439,6 @@
   transition: border-color 0.2s;
 }
 
-.editor .field:hover {
-  border-color: #3498db;
-  background: #ebebeb;
-}
-
 .editor .field:after {
   content: '\0020';
   display: block;
@@ -479,14 +474,11 @@
   background: #fff;
   left: 5px;
   padding: 0 5px;
-  transition: top 0.2s;
   font-size: 86%;
 }
 
 .editor .field:hover .field-label {
   color: #3498db;
-  top: -1.6em;
-  background: none;
 }
 
 
@@ -640,7 +632,7 @@
   box-shadow: none;
   color: #333;
   cursor: default;
-  padding: 4px 10px;
+  padding: 10px 10px;
   margin-top: 16px;
   border: 1px solid #ebebeb;
   position: relative;

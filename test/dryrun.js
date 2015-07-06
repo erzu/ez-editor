@@ -101,14 +101,14 @@ new Editor('#fixture .editor', {
           type: 'object',
           columns: {
             image: { type: 'image', width: 200, height: 200, label: '图片'},
-            title: { type: 'text', label: '标题'},
-            color: { type: 'color', sourceImage: 'image', label: '配色'}
+            title: { type: 'text'},
+            color: { type: 'color', sourceImage: 'image'}
           }
         }
       },
       shopType: { type: 'diamondShopType' },
       color: { type: 'color', palette: ['#f1c40f', '#e67e22', '#e74c3c', '#ecf0f1', '#95a5a6']},
-      number: { type: 'number', label: '填个数字'},
+      number: { type: 'number'},
       source: {
         type: 'mixed',
         columns: [{
