@@ -25,20 +25,11 @@ new Editor('#editor', {
   }
 })
 
-  // ImageField 中上传图片所用的接口
   .set('image:create', '/graphics/images')
   .on('image:didCreate', function(e) {
     var field = e.target
     var result = e.result
 
-    // `/graphics/images` 接口返回的结果。在创意中心里，这个接口返回的结果格式类似：
-    //
-    //     {
-    //       files: [
-    //         { id: 784533, path: 'http://...', width: 200, height: 200 }
-    //       ]
-    //     }
-    //
     field.change(result.files[0].path)
   })
 
@@ -48,26 +39,17 @@ new Editor('#editor', {
 
 ### Register Type
 
-可以使用 `.registerType` 方法，扩展 `metadata` 里头的字段类型，方便处理类似：
-
-- 1688Shop
-- clip
-- diamondShop
-- diamondShopType
-- diamondVideo
-- video
-
-之类的特殊字段：
+可以使用 `.registerType` 方法，扩展 `metadata` 里头的字段类型
 
 ```js
 var Editor = require('ez-editor')
 var Field = Editor.Field
 
 
-var diamondVideoFieldCounter = 0
+var VideoFieldCounter = 0
 
-function DiamondVideoField(p, opts) {
-  this.id = '#j-editor-diamond-video-field' + diamondVideoFieldCounter++
+function VideoField(p, opts) {
+  this.id = '#j-editor-video-field' + VideoFieldCounter++
   this.property = p
   this.opts = _.extend({
     formats: ['flv'],
@@ -77,15 +59,15 @@ function DiamondVideoField(p, opts) {
   this.page = 1
 }
 
-_.inherits(DiamondVideoField, Field)
+_.inherits(VideoField, Field)
 
-_.extend(DiamondVideoField.prototype, {
+_.extend(VideoField.prototype, {
   // ...
 })
 
 
 new Editor('#editor', { ... })
-  .registerType('diamondVideo', DiamondVideoField)
+  .registerType('video', VideoField)
   .end()
 ```
 
@@ -102,24 +84,9 @@ $ tnpm start
 $ open http://localhost:5000/test/dryrun.html
 ```
 
-新接入的用户不需要关心以下文档，只是迁移过程的记录。
+### 注册字段类型
 
-
-### 没有 `diamondShop` 等业务定制字段
-
-相比 `ma/saka/edit`，`ez-editor` 里不支持如下字段：
-
-| type            | Class                |
-|-----------------|----------------------|
-| 1688Shop        | _1688ShopField       |
-| clip            | ClipField            |
-| diamondShop     | DiamondShopField     |
-| diamondShopType | DiamondShopTypeField |
-| diamondVideo    | DiamondVideoField    |
-| video           | VideoField           |
-
-因为都是与具体业务，与所接入的平台强相关的，所以在 `ez-editor` 模块中默认不支持这些字段。
-相应的，在具体场景中，我们可以通过 `.registerType` 来注册字段类型：
+在具体场景中，我们可以通过 `.registerType` 来注册字段类型：
 
 ```js
 new Editor('#editor', { ... })
