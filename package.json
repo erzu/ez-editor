@@ -1,7 +1,7 @@
 {
   "name": "ez-editor",
   "description": "A Generic JSON Editor",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "repository": {
     "type": "git",
     "url": "git@github.com:erzu/ez-editor.git"
@@ -20,6 +20,7 @@
     "oceanifier": "~3.1.0",
     "totoro": "~1.0.2"
   },
+  "license": "MIT",
   "scripts": {
     "start": "oceanify serve",
     "test": "totoro --runner=http://`oceanify ip`:5000/test/runner.html"
