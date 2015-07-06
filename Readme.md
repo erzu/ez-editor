@@ -99,11 +99,8 @@ TODO
 
 ```js
 $ tnpm start
-$ open http://localhost:5000/tets/runner.html
+$ open http://localhost:5000/test/dryrun.html
 ```
-
-
-## 与 `ma/saka/edit` 的区别
 
 新接入的用户不需要关心以下文档，只是迁移过程的记录。
 
@@ -133,13 +130,10 @@ new Editor('#editor', { ... })
 详见 `.registerType` 相关文档，自定义的字段 Class 写法详见 `Field` 相关文档。
 
 
-### 不处理预览区域
+### 数据变动事件
 
-在 `ma/saka/edit` 里，直接支持了 `ma/saka/show` 构建出来的实例。定制面板中的数据有变更
-的时候，会自行刷新预览区域。
-
-在 `ez-editor` 里， 不再耦合这层逻辑，编辑器只消化传进来的 `data` 和 `metadata`，
-数据有变更时，通过 `change` 事件抛出：
+在 `ez-editor` 里， 编辑器只消化传进来的 `data` 和 `metadata`，数据有变更时，通过
+`change` 事件抛出：
 
 ```js
 var stage = require('creative-show')('#creative', creative).end()
@@ -153,15 +147,9 @@ new Editor('#el', { ... })
   .end()
 ```
 
-`ez-editor` 也不再持有 `stage`，而是仅处理 `stage.data` 和 `stage.metadata`。
+### 数据提取
 
-
-### 不处理数据保存
-
-在 `ma/saka/edit` 里，用户点击右侧面板底部的保存按钮的时候，会直接向配置的后端接口提交数据。
-
-在 `ez-editor` 里，不再耦合这层逻辑，编辑器也不再监听 `$('.j-save')` 的点击时间，需要
-在使用的时候自行调用 `Editor#dump`
+保存时可以调用 `Editor#dump` 获取编辑器数据
 
 ```js
 var editor = new Editor('#el', { ... })

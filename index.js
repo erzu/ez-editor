@@ -42,12 +42,7 @@ function createModel(metadata, data) {
 
     function addChild(child) {
       child.parent = parent
-
-      if (parent instanceof Collection) {
-        parent.models.push(child)
-      } else {
-        parent.columns.push(child)
-      }
+      parent.columns.push(child)
     }
 
     if (obj.type !== 'mixed') path.push(p)
@@ -122,6 +117,7 @@ extend(Editor.prototype, {
   end: function(fn) {
     this.render()
     this.bind()
+    this.sync()
     if (fn) fn.call(this)
 
     return this
@@ -166,6 +162,13 @@ extend(Editor.prototype, {
     this.on('metadata', this.syncMetadata.bind(this))
 
     later(poll)
+  },
+
+  /*
+   * Separate .sync process out of .bind
+   */
+  sync: function() {
+    this.model.sync()
   },
 
   syncMetadata: function(e) {
