@@ -544,7 +544,7 @@
 .editor .field,
 .editor .model,
 .editor .collection {
-  margin: 20px 0 40px;
+  margin: 20px 0 30px;
 }
 
 .editor .model .model,
@@ -558,11 +558,25 @@
   margin-bottom: 0 !important;
 }
 
+
+/*
+ * Root model's fields
+ */
 .editor [data-property='root'] > .field {
   border: 1px solid #ebebeb;
+  padding: 0 10px 10px;
 }
 
-.editor [data-property='root'] > .field .error {
-  min-height: 18px;
+.editor [data-property='root'] > .field .field-label {
+  left: 15px;
 }
 
+
+/*
+ * Models that are not contained by collections
+ */
+.editor [data-property='root'] > .model {
+  border: 1px solid #ebebeb;
+  box-sizing: border-box;
+  padding: 0 10px 10px;
+}

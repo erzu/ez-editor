@@ -3,19 +3,25 @@
 <head>
   <meta charset="utf-8">
   <link type="text/css" rel="stylesheet" href="/node_modules/mocha/mocha.css" />
-  <link rel="stylesheet" href="http://g.tbcdn.cn/thx/cube/1.2.0/cube.css">
-  <link rel="stylesheet" href="http://amo.alicdn.com/L1/377/10010/assets/editor-7d540c6c850b4e8dc4c2078cbec50534.css">
+  <link rel="stylesheet" href="http://g.tbcdn.cn/thx/cube/1.2.1/cube.css">
+  <link rel="stylesheet" href="../assets/ez-editor.css">
   <title>ez-editor &mdash; Test Runner</title>
   <style type="text/css">
-  #mocha { margin-right: 320px; }
+  #mocha { margin-right: 330px; }
+  .aside {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    width: 300px;
+  }
+  .aside .editor {
+    padding-top: 60px;
+  }
   </style>
 </head>
 <body>
   <div id="mocha"></div>
   <div id="fixture" class="aside">
-    <div class="title-bar">
-      <h3>Editor Fixture</h3>
-    </div>
     <div class="editor form"></div>
   </div>
   <script src="/node_modules/mocha/mocha.js"></script>
@@ -25,9 +31,8 @@
   <!--<![endif]-->
   <script src="/config.js"></script>
   <script>
-    /* globals mocha: false, seajs: false */
+    /* eslint-disable */
     mocha.ui('bdd')
-
     seajs.use('ez-editor/test/test.editor', function() {
       mocha.run()
     })
