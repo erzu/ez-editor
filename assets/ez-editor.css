@@ -282,6 +282,16 @@
   font-size: 12px;
   color: #d51b00;
   text-align: right;
+  display: none;
+}
+
+.editor .field-error input[type='text']:focus,
+.editor .field-error input[type='text'] {
+  border-color: #d51b00;
+}
+
+.editor .field-error .error {
+  display: block;
 }
 
 .editor .field-label {
