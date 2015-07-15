@@ -28,6 +28,14 @@ var TypeMap = {
   select: SelectField
 }
 
+function getValueByPath(data, path, defaultValue) {
+  var value = path.reduce(function(obj, p) {
+    return obj[p]
+  }, data)
+
+  return value == null ? defaultValue : value
+}
+
 function createModel(metadata, data) {
   var parent = new Model()
   var path = []
@@ -48,9 +56,7 @@ function createModel(metadata, data) {
     if (obj.type !== 'mixed') path.push(p)
 
     obj = extend({}, obj)
-    obj.value = path.reduce(function(data, p) {
-      return data[p]
-    }, data) || obj.value
+    obj.value = getValueByPath(data, path, obj.value)
 
     switch (obj.type) {
       case 'object':
