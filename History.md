@@ -1,3 +1,8 @@
+0.2.4 / 2015-11-24
+==================
+
+ * Image Field can now support hideable element
+
 0.2.3 / 2015-07-15
 ==================
 
