@@ -550,6 +550,38 @@
   content: '\e607';
 }
 
+/*
+ * HsvField
+ */
+.hsv-field .hsv-sliders {
+  margin-top: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.hsv-field .container {
+  cursor: pointer;
+  position: relative;
+  padding: 8px 0;
+}
+
+.hsv-field .spectrum {
+  width: 278px;
+  height: 6px;
+  border-radius: 2px;
+}
+
+.hsv-field .slider {
+  position: absolute;
+  left: -4px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #666;
+}
 
 /*
  * Recursions

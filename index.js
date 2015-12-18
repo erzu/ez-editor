@@ -13,6 +13,7 @@ var NumberField = require('./lib/number_field')
 var LinkField = require('./lib/link_field')
 var HiddenField = require('./lib/hidden_field')
 var ColorField = require('./lib/color_field')
+var HsvField = require('./lib/hsv_field')
 var SelectField = require('./lib/select_field')
 
 var E = $.Events
@@ -25,6 +26,7 @@ var TypeMap = {
   hidden: HiddenField,
   color: ColorField,
   text: Field,
+  hsv: HsvField,
   select: SelectField
 }
 
