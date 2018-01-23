@@ -8,21 +8,21 @@
   },
   "dependencies": {
     "crox": "~1.3.1",
-    "extend-object": "~1.0.0",
-    "heredoc": "~1.3.0",
-    "inherits": "~2.0.1",
-    "jquery": "~1.11.2",
-    "yen": "~1.2.4"
+    "extend-object": "^1.0.0",
+    "heredoc": "^1.3.0",
+    "inherits": "^2.0.1",
+    "jquery": "^3.3.1",
+    "yen": "^1.2.4"
   },
   "devDependencies": {
     "expect.js": "~0.3.1",
     "mocha": "~1.20.1",
-    "oceanifier": "~3.1.0",
+    "@cara/porter-cli": "~3.1.0",
     "totoro": "~1.0.2"
   },
   "license": "MIT",
   "scripts": {
-    "start": "oceanify serve",
-    "test": "totoro --runner=http://`oceanify ip`:5000/test/runner.html"
+    "start": "porter serve",
+    "test": "totoro --runner=http://`porter ip`:5000/test/runner.html"
   }
 }
